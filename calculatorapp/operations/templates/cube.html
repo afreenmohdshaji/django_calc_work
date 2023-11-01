@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Cube</h1>
+    <div class="container">
+        <form action="" method="post">
+            {%csrf_token%}
+            <div>
+                <label for="">num1</label>
+                <input type="text" name="num1" placeholder="enter your no">
+            </div>
+
+            <div>
+                <button type="submit">cube</button>
+
+            </div>
+        </form>
+        {{output}}
+    </div>
+</body>
+</html>
