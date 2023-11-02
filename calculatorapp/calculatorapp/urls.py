@@ -30,5 +30,6 @@ urlpatterns = [
     path("fact/",views.FactorialView.as_view(),name="fact"),
     path("leap/",views.LeapYearView.as_view(),name="leapyear"),
     path("bmi/",views.BmiView.as_view(),name="bmi_cal"),
+    path("emi/",views.EmiView.as_view(), name="emi"),
     path("",views.IndexView.as_view()),
 ]

@@ -100,6 +100,26 @@ class BmiView(View):
         bmi=int(num1/(num2)**2)
 
         return render(request,"bmi.html",{"out":bmi})
+    
+class EmiView(View):
+    def get(self,request,*args,**kwargs):
+        return render(request,"emi.html")
+    def post(self,request,*args,**kwargs):
+        p=int(request.POST.get("amount"))
+        intrest_rate=int(request.POST.get("interest"))
+        tenure=int(request.POST.get("tenure"))
+        n=tenure*12
+        r=intrest_rate/12
+        i=r/100
+        EMI=p*i*(1+i)**n/((1+i)**n)-1
+        EMI=round(EMI,0)
+        total_payable_amount=EMI*n
+        total_interest_payable=total_payable_amount-p
+        print(total_payable_amount)
+        print(total_interest_payable)
+        return render(request,"emi.html",{"out":EMI,"payable_amount":total_payable_amount,"intrest_payable":total_interest_payable})
+
+
 
     
 
