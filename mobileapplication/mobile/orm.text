@@ -1,0 +1,17 @@
+class Mobiles(models.Model):
+    name=models.CharField(max_length=40,unique=True)
+    price=models.PositiveIntegerField()
+    brand=models.CharField(max_length=40)
+    specs=models.CharField(max_length=200)
+    display=models.CharField(max_length=200)
+
+
+orm querry(object relational mapper)
+
+from mobile.models import Mobiles
+
+model_name.object.create(name=value,...)
+
+from mobile.models import Mobiles
+
+Mobiles.objects.create(name="Samsung S23",price=80000,brand="Samsung",specs="specified",display="LED")
