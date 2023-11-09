@@ -15,3 +15,24 @@ model_name.object.create(name=value,...)
 from mobile.models import Mobiles
 
 Mobiles.objects.create(name="Samsung S23",price=80000,brand="Samsung",specs="specified",display="LED")
+
+Mobiles.objects.all() 'to print all'
+Mobiles.objects.get(id=2)
+Mobiles.objects.filter(brand="Samsung)
+
+<= (__lte)
+>=(__gte)
+<(__lt)
+>(__gt)
+
+qs=Mobiles.objects.exclude(brand="Samsung") 
+Mobiles.objects.filter(id=3).delete() 
+Mobiles.objects.filter(id=3).update(price=90000) 
+Mobiles.objects.all().order_by("price") #ascending
+Mobiles.objects.all().order_by("-price") #desending
+
+Mobiles.objects.all().values("brand")
+
+Mobiles.objects.all().values_list("brand") 
+
+Mobiles.objects.all().values_list("brand",flat=True)
