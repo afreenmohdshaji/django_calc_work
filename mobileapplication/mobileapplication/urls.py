@@ -17,12 +17,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from mobile import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('mobile/all',views.MobileListView.as_view(),name="mobile-all"),
     path('mobile/<int:pk>',views.MobileDetailView.as_view(),name="mobile-detail"),
     path('mobile/<int:pk>/remove',views.MobileDeleteView.as_view(),name="mobile-delete"),
-    path('add/',views.MobileCreateView.as_view(),name="mobile-add")
+    path('add/',views.MobileCreateView.as_view(),name="mobile-add"),
+    path('mobile/<int:pk>/change',views.MobileUpdateView.as_view(),name="mobile-change"),
+    path('register',views.SignUpView.as_view(),name="register"),
+    path('',views.SignUpView.as_view(),name="signin"),
+    path('logout',views.SignOutView.as_view(),name="signout")
 
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
