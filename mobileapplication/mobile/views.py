@@ -39,8 +39,7 @@ class MobileListView(View):
 @method_decorator(signin_required,name="dispatch")
 class MobileDetailView(View):
     def get(self,request,*args,**kwargs):
-        if request.user.is_authenticated:
-            return redirect("signin")
+        
         id=kwargs.get("pk")
         qs=Mobiles.objects.get(id=id)
         return render(request,"mobile_detail.html",{'data':qs})
