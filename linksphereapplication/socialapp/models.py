@@ -14,7 +14,7 @@ class UserProfile(models.Model):
     address=models.CharField(max_length=200,null=True)
     phone=models.CharField(max_length=200,null=True)
     profile_pic=models.ImageField(upload_to="profile_pics",null=True,blank=True)
-    DOB=models.DateField(null=True,blank=True)
+    DOB=models.DateField(null=False,blank=False)
     Bio=models.CharField(max_length=200,null=True,blank=False)
     following=models.ManyToManyField("self",related_name="followed_by",symmetrical=False,null=True)
     block=models.ManyToManyField("self",related_name="blocked",symmetrical=False,null=True)
@@ -50,12 +50,15 @@ class Stories(models.Model):
     created_date=models.DateTimeField(auto_now_add=True)
     # exp=created_date+timezone.timedelta(days=1)
     expiry_date=models.DateTimeField()
+    
     def __str__(self):
-        return
+        return self.title
+    
     def save(self,*args,**kwargs):
         if not self.expiry_date:
-            self.expiry_date=self.created_date+timezone.timedelta(days=1)
+            self.expiry_date=timezone.now()+timezone.timedelta(days=1)
         super().save(*args,**kwargs)
+
 
 
 

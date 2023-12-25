@@ -1,6 +1,6 @@
-<!DOCTYPE html>
+{%extends 'base.html'%}
 {%load static%}
-<html lang="en">
+{%block body_block%}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,8 +16,10 @@
                 <div class="col-lg-6">
                     <div class="about-text go-to">
                         <h3 class="dark-color">{{data.user.username}}</h3>
+                        {%if data.user == request.user%}
                         <a href="{%url 'profile-edit' request.user.profile.id%}"><button class="btn btn-dark">Edit profile</button></a>
-                        <p>Bio: Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veritatis impedit, odit perferendis natus sapiente fugiat adipisci, rerum nihil aliquam beatae unde voluptas labore. Quaerat dicta, commodi assumenda iste ea ipsam.</p>
+                        {%endif%}
+                        <p>Bio: {{ data.Bio }}</p>
                         <div class="row about-list">
                             <div class="col-md-6">
                                 <div class="media">
@@ -36,16 +38,32 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="media">
-                                    <label>Bio</label>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati dolorem, reiciendis qui recusandae id quisquam, voluptates fugit accusamus consequuntur autem optio? Temporibus nam saepe deleniti exercitationem, at perferendis odit. Ad!</p>
+                                    <label for="{{ form.Bio.id_for_label }}">Bio</label>
+                                    <p>{{ data.Bio.value }}</p>
                                 </div>
+                                {%if data.user != request.user%}
+                                <div class="media">
+                                    <form action="{%url 'block' data.id%}" method="post">
+                                        {%csrf_token%}
+                                        {%if data in request.user.profile.block.all%}
+                                            <button name="action" value="unblock" class="btn btn-secondary ms-3">Unblock</button>
+                                        {%else%}
+                                            <button name="action" value="block" class="btn btn-danger ms-3">Block</button>
+                                        {%endif%}
+                                    </form>
+                                </div>
+                                {%endif%}
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="about-avatar">
-                        <img src="{%static 'social_app/images/profilepic.png'%}" title="" alt="">
+                        {% if data.profile_pic %}
+                        <img class="profile-small profile-pic shadow h-auto w-100" src="{{ data.profile_pic.url }}" alt="Avatar" style="border-radius: 50%; background-color: rgb(68, 68, 68);">
+                        {% else %}
+                        <img class="profile-small profile-pic shadow h-auto w-100" src="{% static 'social_app/images/profilepic.png' %}" alt="Avatar" style="border-radius: 50%; background-color: rgb(68, 68, 68);">
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -53,25 +71,25 @@
                 <div class="row">
                     <div class="col-6 col-lg-3">
                         <div class="count-data text-center">
-                            <h6 class="count h2" data-to="500" data-speed="500">count</h6>
+                            <h6 class="count h2" data-to="500" data-speed="500">{{ data.following.count }}</h6>
                             <p class="m-0px font-w-600">Following</p>
                         </div>
                     </div>
                     <div class="col-6 col-lg-3">
                         <div class="count-data text-center">
-                            <h6 class="count h2" data-to="150" data-speed="150">Count</h6>
+                            <h6 class="count h2" data-to="150" data-speed="150">{{ data.followed_by.count }}</h6>
                             <p class="m-0px font-w-600">Follower</p>
                         </div>
                     </div>
                     <div class="col-6 col-lg-3">
                         <div class="count-data text-center">
-                            <h6 class="count h2" data-to="850" data-speed="850">Count</h6>
+                            <h6 class="count h2" data-to="850" data-speed="850">{{ data.block.all.count }}</h6>
                             <p class="m-0px font-w-600">Blocked</p>
                         </div>
                     </div>
                     <div class="col-6 col-lg-3">
                         <div class="count-data text-center">
-                            <h6 class="count h2" data-to="190" data-speed="190">Count</h6>
+                            <h6 class="count h2" data-to="190" data-speed="190">{{ data.user.user_post.all.count }}</h6>
                             <p class="m-0px font-w-600">Posts</p>
                         </div>
                     </div>
@@ -79,5 +97,6 @@
             </div>
         </div>
     </section>
+    {%endblock%}
 </body>
 </html>

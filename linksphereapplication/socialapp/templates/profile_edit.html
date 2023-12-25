@@ -1,6 +1,6 @@
-<!DOCTYPE html>
-<!-- {%load static%} -->
-<html lang="en">
+{%extends 'base.html'%}
+{%load static%}
+{%block body_block%}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,10 +14,13 @@ background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
 background: linear-gradient(to right, #FF4B2B, #FF416C);">
     <div class="vh-100 container d-flex flex-column justify-content-center align-items-center">
         <div>
-            <h1 class="text-white fw-bold">Update Your Profile</h1>
+            <h1 class="text-white fw-bold mt-5">Update Your Profile</h1>
         </div>
-        <form action="{% url 'profile-edit' pk=request.user.profile.id %}" method="post" enctype="multipart/form-data" class="border-0 rounded-3 form-control p-0 w-50 shadow">
+        <form action="" method="post" enctype="multipart/form-data" class="border-0 rounded-3 form-control p-0 w-50 shadow">
+
             {% csrf_token %}
+            
+
             <div class="text-center bg-danger rounded-top-3 rounded-bottom-0 pb-3">
                 <!-- Profile pic change start -->
                 <label for="fileToUpload">
@@ -58,6 +61,19 @@ background: linear-gradient(to right, #FF4B2B, #FF416C);">
                 </div>
             </div>
         </form>
+        {% if form.errors %}
+            <div class="alert alert-danger" role="alert">
+            <strong>Error(s):</strong>
+            <ul>
+            {% for field, errors in form.errors.items %}
+                {% for error in errors %}
+                    <li>{{ field|title }}: {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+            </ul>
+            </div>
+        {% endif %}
     </div>
+    {%endblock%}
 </body>
 </html>

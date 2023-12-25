@@ -1,0 +1,60 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block body_block%}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+    
+    <div class="container">
+        
+        <div class="row">
+            {%for profiles in data %}
+                <div class="col-4 mt-5">
+                    <div class="card mt-3 shadow" style="width: 18rem;">
+                        {%if profiles.profile_pic %}
+                        <img src="{{ profiles.profile_pic.url }}" class="card-img-top" alt="..." height="300px">
+                        {%else%}
+                        <img src="{% static 'social_app/images/profilepic.png' %}" class="card-img-top" alt="..." height="300px">
+                        {%endif%}
+                        
+                        <div class="card-body">
+                          <a href="{%url 'profile' profiles.id%}">{{profiles}}</a>
+                          <p class="card-text">
+                            Bio:{{profiles.Bio}}
+                            Email:{{profiles.user.email}}
+                          </p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                          <li class="list-group-item">{{profiles.following.count}} following {{profiles.followed_by.count}} followers</li>
+                          
+                        </ul>
+                        <div class="card-body">
+                          <form action="{%url 'follow' profiles.id %}" method="post">
+                            {%csrf_token%}
+                            {%if profiles in request.user.profile.following.all%}
+                              <button type="submit" name="action" value="unfollow" class="btn btn-primary">Unfollow</button>
+                            {%else%}
+                              <button type="submit" name="action" value="follow" class="btn btn-primary">Follow</button>
+                            {%endif%}
+                          </form>
+                        </div>
+                      </div>
+                      
+                </div>
+            {%endfor%}
+        </div>
+    </div>
+    {%endblock%}
+</body>
+</html>
+
+
+
+
+
+

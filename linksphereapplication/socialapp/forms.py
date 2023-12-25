@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from socialapp.models import UserProfile
+from socialapp.models import UserProfile,Posts,Comments,Stories
 
 class RegistrationForm(UserCreationForm):
     class Meta:
@@ -34,9 +34,26 @@ class LoginForm(forms.Form):
     password=forms.CharField(widget=(forms.PasswordInput)(attrs={"class":"form-control","placeholder":"Enter Password"}))
     
 class UserProfileForm(forms.ModelForm):
+    Bio = forms.CharField(required=False,widget=forms.Textarea(attrs={'rows': 4, 'cols': 15}))
     class Meta:
         model=UserProfile
         exclude=("user","following","block")
         widgets={
             "DOB":forms.DateInput(attrs={"class":"form-control","type":"date"})
         }
+        required = ['profile_pic', 'address', 'phone','Bio']
+        
+class PostForm(forms.ModelForm):
+    class Meta:
+        model=Posts
+        fields=["title","post_image"]
+        
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model=Comments
+        fields=["text"]
+
+class StoryForm(forms.ModelForm):
+    class Meta:
+        model=Stories
+        fields=["title","post_image"]       
