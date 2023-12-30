@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
 from mobile import views
 from django.conf import settings
 from django.conf.urls.static import static
@@ -29,6 +29,7 @@ urlpatterns = [
     path('mobile/<int:pk>/change',views.MobileUpdateView.as_view(),name="mobile-change"),
     path('register',views.SignUpView.as_view(),name="register"),
     path('',views.SignUpView.as_view(),name="signin"),
-    path('logout',views.SignOutView.as_view(),name="signout")
+    path('logout',views.SignOutView.as_view(),name="signout"),
+    path('api/',include("api.urls"))
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
