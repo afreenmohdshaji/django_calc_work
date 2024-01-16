@@ -1,0 +1,222 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "trendbazar",
+    "dateExported": "2024-01-15T16:34:41.648Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "cbdf47f5-f3fd-4fef-9540-5d27ca4ec916",
+            "colId": "b8e06ff9-4964-4385-b67d-570ed801a67d",
+            "containerId": "",
+            "name": "signup",
+            "url": "http://127.0.0.1:8000/api/register/",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-01-10T15:42:47.242Z",
+            "modified": "2024-01-10T15:44:06.620Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formdata",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "username",
+                        "value": "customer"
+                    },
+                    {
+                        "name": "email",
+                        "value": "customer@gamil.com"
+                    },
+                    {
+                        "name": "password",
+                        "value": "customer "
+                    }
+                ]
+            },
+            "tests": []
+        },
+        {
+            "_id": "306836fe-f31d-4da1-8ef0-4966cd92220d",
+            "colId": "b8e06ff9-4964-4385-b67d-570ed801a67d",
+            "containerId": "",
+            "name": "token",
+            "url": "http://127.0.0.1:8000/api/token/",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2024-01-10T16:09:09.128Z",
+            "modified": "2024-01-10T16:10:15.077Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formdata",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "username",
+                        "value": "customer"
+                    },
+                    {
+                        "name": "password",
+                        "value": "customer"
+                    }
+                ]
+            },
+            "tests": []
+        },
+        {
+            "_id": "23b948da-263f-4f93-9035-7e697d667da9",
+            "colId": "b8e06ff9-4964-4385-b67d-570ed801a67d",
+            "containerId": "",
+            "name": "productlist",
+            "url": "http://127.0.0.1:8000/api/products/",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2024-01-10T16:36:16.790Z",
+            "modified": "2024-01-10T19:29:30.546Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Token 09572d4b29153734f9ab4a207db952517825d0fb"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "c2b6dd4f-76ed-429d-9408-c7a9ef451ac4",
+            "colId": "b8e06ff9-4964-4385-b67d-570ed801a67d",
+            "containerId": "",
+            "name": "product detail",
+            "url": "http://127.0.0.1:8000/api/products/1/",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2024-01-10T19:25:42.677Z",
+            "modified": "2024-01-10T19:28:49.896Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Token  09572d4b29153734f9ab4a207db952517825d0fb"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "203b7dfd-81fb-44bd-9740-129ec6b573c5",
+            "colId": "b8e06ff9-4964-4385-b67d-570ed801a67d",
+            "containerId": "",
+            "name": "addtocart",
+            "url": "http://127.0.0.1:8000/api/products/1/add_to_basket/",
+            "method": "POST",
+            "sortNum": 50000,
+            "created": "2024-01-10T20:12:33.563Z",
+            "modified": "2024-01-13T11:05:11.134Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Token 09572d4b29153734f9ab4a207db952517825d0fb"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "formdata",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "qty",
+                        "value": "3"
+                    }
+                ]
+            },
+            "tests": []
+        },
+        {
+            "_id": "c0e7bc4f-bff7-4140-b611-bd93cf3de438",
+            "colId": "b8e06ff9-4964-4385-b67d-570ed801a67d",
+            "containerId": "",
+            "name": "basketitem",
+            "url": "http://127.0.0.1:8000/api/baskets/",
+            "method": "GET",
+            "sortNum": 60000,
+            "created": "2024-01-10T20:37:34.428Z",
+            "modified": "2024-01-10T20:38:56.953Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Token 09572d4b29153734f9ab4a207db952517825d0fb"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "61b9f810-264d-4077-a8fc-9c288b4992ab",
+            "colId": "b8e06ff9-4964-4385-b67d-570ed801a67d",
+            "containerId": "",
+            "name": "basketitemdetail",
+            "url": "http://127.0.0.1:8000/api/baskets/item/2/",
+            "method": "GET",
+            "sortNum": 70000,
+            "created": "2024-01-13T13:10:32.144Z",
+            "modified": "2024-01-13T13:12:00.094Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Token 09572d4b29153734f9ab4a207db952517825d0fb"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "2f9289d8-8226-4e53-ad11-53127a243144",
+            "colId": "b8e06ff9-4964-4385-b67d-570ed801a67d",
+            "containerId": "",
+            "name": "update basketitem",
+            "url": "http://127.0.0.1:8000/api/baskets/item/2/",
+            "method": "PUT",
+            "sortNum": 80000,
+            "created": "2024-01-13T13:23:06.561Z",
+            "modified": "2024-01-13T13:24:50.476Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Token 09572d4b29153734f9ab4a207db952517825d0fb"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "formdata",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "qty",
+                        "value": "1"
+                    }
+                ]
+            },
+            "tests": []
+        },
+        {
+            "_id": "cf6b1637-9cb2-4f33-bfab-7621100b2e13",
+            "colId": "b8e06ff9-4964-4385-b67d-570ed801a67d",
+            "containerId": "",
+            "name": "delete basketitem",
+            "url": "http://127.0.0.1:8000/api/baskets/item/2/",
+            "method": "DELETE",
+            "sortNum": 90000,
+            "created": "2024-01-13T21:09:39.020Z",
+            "modified": "2024-01-13T21:10:34.561Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Token 09572d4b29153734f9ab4a207db952517825d0fb"
+                }
+            ],
+            "params": [],
+            "tests": []
+        }
+    ]
+}
