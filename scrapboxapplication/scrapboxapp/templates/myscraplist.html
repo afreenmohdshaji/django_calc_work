@@ -1,0 +1,29 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block body_block%}
+<body class="vh-100 bg bg-black">
+    <div class="container">
+        <div class="row d-flex">
+            {%for s in data%}
+            <div class="col-lg-4 col-md-5 mt-5">
+                
+                <div class="card bg-body-secondary" style="width: 18rem;">
+                    <img src="{{s.picture.url}}" class="card-img-top rounded-4" alt="..." style="width: 80%;  height: 200px; margin: auto; margin-top: 10px;">
+                    <div class="card-body">
+                      <h5 class="card-title fw-bold">{{s.name}}</h5>
+                      <hr>
+                      <span class="card-text">Rs{{s.price}}</span>
+                      <hr>
+                      <p class="card-text">{{s.description}}</p>
+                      <a href="{%url 'scrap-edit' s.id %}" class="btn btn-primary">Edit</a>
+                      <a href="{%url 'scrap-delete' s.id %}" class="btn btn-danger">Delete</a>
+                    </div>
+                </div>
+                
+            </div>
+            {%endfor%}
+        </div>
+    </div>
+</body>
+</html>
+{%endblock%}

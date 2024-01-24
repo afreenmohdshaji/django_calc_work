@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scrapbox</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{%static 'scrapbox/css/style.css'%}">
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-white">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="{%url 'index'%}"><img src="{%static 'scrapbox/images/logo.png'%}" alt="" style="width: 100px;"></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent">
+            
+            <form class="d-flex " role="search" style="margin-right: 40%;">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-dark" type="submit">Search</button>
+            </form>
+            <div class="me-5">
+              <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="#"></a>
+                </li>
+                <li class="nav-item text-center">
+                  <a class="nav-link  " href="{%url 'scrap-add'%}"><button class="btn btn-outline-dark rounded-pill p-1 pe-3 ps-3 ">+Add</button>    </a>
+                </li>
+                <li class="nav-item dropdown me-5">
+                  <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      {% if request.user.profile.profile_pic %}
+                      <img class="custom-profile-pic" src="{{ request.user.profile.profile_pic.url }}" alt="Avatar" style="border-radius: 50%; height: 30px; width: 30px; background-color: rgb(68, 68, 68);">
+                      {% else %}
+                      <img class="custom-profile-pic" src="{% static 'scrapbox/images/profilepic.png' %}" alt="Avatar" style="border-radius: 50%; height: 30px; width: 30px; background-color: rgb(68, 68, 68);">
+                      {% endif %}
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{%url 'profile-detail' request.user.profile.id%}">Profile</a></li>
+                    <li><a class="dropdown-item" href="{%url 'wishlistview' %}">Wishlist</a></li>
+                    <li><a class="dropdown-item" href="{%url 'myscrap-list' %}">My Scraps</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="{%url 'logout' %}">Log Out</a></li>
+                  </ul>
+                </li>
+                
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+      {%block body_block%}
+
+      {%endblock%}
+</body>
+</html>

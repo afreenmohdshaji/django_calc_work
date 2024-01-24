@@ -1,0 +1,18 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block body_block%}
+<head>
+    <title>Edit scrap</title>
+</head>
+<body class="vh-100 bg bg-black">
+    <div class="container w-50 shadow rounded-4 bg-body-secondary mt-4 p-4">
+        <h1 class="text-center fw-bold">Edit Your Scrap</h1>
+        <form action="" method="post" enctype="multipart/form-data">
+            {%csrf_token%}
+            {{form}}
+            <button type="submit" class="btn btn-primary d-grid gap-2 col-6 mx-auto">Edit</button>
+        </form>
+    </div>
+</body>
+</html>
+{%endblock%}

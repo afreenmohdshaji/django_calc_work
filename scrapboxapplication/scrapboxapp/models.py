@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
 
 # Create your models here.
 
@@ -10,8 +11,15 @@ class UserProfile(models.Model):
     address=models.CharField(max_length=200)
     phone=models.CharField(max_length=200)
     profile_pic=models.ImageField(upload_to="profilepics")
-    def __str__(self) -> str:
+    
+    
+
+    def __str__(self):
         return self.user.username
+def create_profile(sender,created,instance,**kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
+post_save.connect(create_profile,sender=User)
 
 class Category(models.Model):
     name=models.CharField(max_length=200)
@@ -23,16 +31,20 @@ class Scrap(models.Model):
     name=models.CharField(max_length=200)
     condition=models.CharField(max_length=200)
     price=models.PositiveIntegerField()
-    picture=models.ImageField(upload_to="scrapimages")
+    picture=models.ImageField(upload_to="scrapimages",)
     place=models.CharField(max_length=200)
     category=models.ForeignKey(Category,on_delete=models.CASCADE,related_name="scrap_category")
     created_date=models.DateTimeField(auto_now_add=True)
+    description=models.CharField(max_length=300,null=True)
     status_option=(
         ("sold","sold"),
         ("available","available")
     )
     status=models.CharField(choices=status_option, max_length=200,default="available")
     user=models.ForeignKey(User,on_delete=models.CASCADE,related_name="user_scrap")
+
+    
+
 
     def __str__(self):
         return self.name
@@ -53,7 +65,7 @@ class Bids(models.Model):
     )
     status=models.CharField(choices=option, max_length=200,default="pending")
 
-    def __str__(self) -> str:
+    def __str__(self):
         return self.amount
 
 class Reviews(models.Model):

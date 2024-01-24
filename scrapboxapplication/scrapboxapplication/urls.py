@@ -16,7 +16,27 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from scrapboxapp import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-]
+    path('register/',views.RegistrationView.as_view(),name="register"),
+    path('login/',views.LoginView.as_view(),name="login"),
+    path('index/',views.IndexView.as_view(),name="index"),
+    path('scrap/add/',views.ScrapAdd.as_view(),name='scrap-add'),
+    path('profile/<int:pk>/update/',views.UserUpdateView.as_view(),name="profile-edit"), 
+    path('profile/detail/<int:pk>/',views.UserProfileDetail.as_view(),name="profile-detail"),
+    path('logout',views.LogOutView.as_view(),name="logout"),
+    path('scrap/<int:pk>/detail/',views.ScrapDetailView.as_view(),name="scrap-detail"),
+    path('scrap/<int:pk>/delete',views.ScrapDeleteView.as_view(),name="scrap-delete"),
+    path('scrap/<int:pk>/update',views.ScrapEditView.as_view(),name="scrap-edit"),
+    path('scrap/<int:pk>/wishlist',views.WishlistAddView.as_view(),name='wishlist'),
+    path('scrap/wishlistview/',views.WishListView.as_view(),name="wishlistview"),
+    path('scrap/myscraplist/',views.MyScrapListView.as_view(),name="myscrap-list")
+   
+
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+

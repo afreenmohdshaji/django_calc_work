@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body class="">
+    <div class="container shadow mt-5 w-25 rounded ">
+        <div class="row">
+            <div class="col-lg-6 col-md-4 col-2">
+                <div class="card border border-0" style="width: 18rem;">
+                    <img src="{%static 'scrapbox/images/logo.png'%}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title fw-bold text-center">Register</h5>
+                    </div>
+                    <div>
+                        {%if form.errors%}
+                            {{form.errors}}
+                        {%endif%}
+                        <form action="" method="post">
+                            {%csrf_token%}
+                            {%for field in form%}
+                                <p class="text-center">
+                                    {%if field.errors%}
+                                        <ul class="text-danger">
+                                            {{field.errors}}
+                                        </ul>
+                                    {%endif%}
+                                    {{field}}
+                                </p>
+                            {%endfor%}
+                    </div>
+                    <div class="card-body">
+                        <button type="submit" class="btn btn-outline-dark d-grid gap-2 col-6 mx-auto">SignUp</button>
+                        <div class="d-flex flex-column justify-content-center mt-4">
+                            <span>I have an account</span>
+                            <span class="fs-6"><a class="text-decoration-none " href="{%url 'login'%}">Login or Signin</a></span>
+                        </div>
+                    </div>
+                  </div>
+            </div>
+        </div>
+        
+    </div>
+    
+</body>
+</html>
+

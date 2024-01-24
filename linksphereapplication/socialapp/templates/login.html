@@ -26,15 +26,15 @@
         <div class="card-body">
           <h1 class="card-title fw-bold text-center">Welcome Back!</h1>
           {%if messages%}
-                {%for m in messages %}
+              {%for m in messages %}
 
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                   <strong> login</strong> {{m}}.
                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
 
-                {%endfor%}
-            {%endif%}
+              {%endfor%}
+          {%endif%}
           <div class="d-flex justify-content-center mt-3">
             <img src="{%static 'social_app/images/logo.png'%}" alt="" style="height: 100px;width: 200px;">
           </div>

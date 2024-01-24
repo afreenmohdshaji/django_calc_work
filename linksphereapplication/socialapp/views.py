@@ -187,3 +187,4 @@ class StoryCreateView(View):
             form.save()
             return redirect("index")
         return redirect("index")
+    

@@ -1,0 +1,54 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block body_block%}
+<div class="bg-dark">
+  <h3 class="text-white">Welcome !{{request.user}}</h3>
+
+    <div class="container">
+        <div class="row d-flex ">
+          {%if  %}
+            {%for scrap in data%}
+            
+            
+            <div class="col-lg-4 col-md-5">
+              <div class="card bg-body-secondary" style="width: 18rem; width: auto; margin-top: 20%;" >
+                <img src="{{scrap.picture.url}}" class="card-img-top rounded" alt="" style="width: 80%;  height: 200px; margin: auto; margin-top: 10px;">
+                <div class="card-body">
+                  <h5 class="card-title">{{scrap.name}}</h5>
+                  <span class="fw-bold">Rs{{scrap.price}}</span>
+                </div>
+                <ul class="list-group list-group-flush ">
+                  <li class="list-group-item bg-body-secondary">{{scrap.category}}</li>
+                  
+                </ul>
+                
+                <div class="card-body">
+                  
+                  <form action="{%url 'wishlist' scrap.id%}" method="post">
+                    <a href="{%url 'scrap-detail' scrap.id %}" class="btn btn-outline-primary">Details</a>
+                    {%csrf_token%}
+                    
+                    {%if scrap in wishlist.scrap.all%}
+                      <button class="pop-btn btn btn-outline-warning" style="text-decoration: none; background-color: transparent; border: none; padding: 0;" type="submit" name="action" value="remove">Remove</button>
+                    {%else%}
+                      <button class="pop-btn btn btn-outline-warning" type="submit" name="action" value="add">Wishlist</button>
+                    {%endif%}
+                    
+                  </form>
+                </div>
+            </div>
+            </div>
+            
+            
+            {%endfor%}
+            {%endif%}
+            
+
+
+
+
+        </div>
+        
+    </div>
+</div>
+{%endblock%}
