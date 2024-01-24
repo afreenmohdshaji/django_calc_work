@@ -3,11 +3,21 @@
 {%block body_block%}
 <div class="bg-dark">
   <h3 class="text-white">Welcome !{{request.user}}</h3>
-
+        <div class="d-flex justify-content-center">
+          {%if messages%}
+            {%for m in messages %}
+              <div class="alert alert-info alert-dismissible fade show w-50" role="alert">
+                <strong> </strong> {{m}}.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            {%endfor%}
+          {%endif%}
+        </div>
     <div class="container">
         <div class="row d-flex ">
-          {%if  %}
+          
             {%for scrap in data%}
+            {% if not scrap.user.id == request.user.id %}
             
             
             <div class="col-lg-4 col-md-5">
@@ -29,7 +39,7 @@
                     {%csrf_token%}
                     
                     {%if scrap in wishlist.scrap.all%}
-                      <button class="pop-btn btn btn-outline-warning" style="text-decoration: none; background-color: transparent; border: none; padding: 0;" type="submit" name="action" value="remove">Remove</button>
+                      <button class="pop-btn btn btn-outline-da"  type="submit" name="action" value="remove">Remove</button>
                     {%else%}
                       <button class="pop-btn btn btn-outline-warning" type="submit" name="action" value="add">Wishlist</button>
                     {%endif%}
@@ -39,9 +49,9 @@
             </div>
             </div>
             
-            
-            {%endfor%}
             {%endif%}
+            {%endfor%}
+            
             
 
 

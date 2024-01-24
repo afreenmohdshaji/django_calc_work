@@ -6,7 +6,7 @@ from scrapboxapp.forms import RegistrationForm,LoginForm,ScrapForm,UserProfileFo
 from django.urls import reverse,reverse_lazy
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
-from scrapboxapp.models import Scrap,UserProfile,WishList
+from scrapboxapp.models import Scrap,UserProfile,WishList,Bids
 from django.views.decorators.cache import never_cache 
 from scrapboxapp.decorators import login_required
 from django.utils.decorators import method_decorator 
@@ -47,6 +47,7 @@ class IndexView(ListView):
     context_object_name = 'data'
 
     
+    
 
 # class ScrapListView(View):
 #     def get(self,request,*args,**kwargs):
@@ -60,6 +61,8 @@ class ScrapAdd(CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user 
+        form.instance.user_id = self.request.user.id  
+        messages.success(self.request, 'Scrap successfully added!!!')
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -71,8 +74,10 @@ class UserUpdateView(UpdateView):
     form_class=UserProfileForm
     template_name="profile_edit.html"
     
+    def form_valid(self, form):
+        messages.success(self.request, 'Profile updated successfully!')
+        return super().form_valid(form)
     
-
     def get_success_url(self):
         return reverse("index")
 
@@ -95,10 +100,13 @@ class ScrapDetailView(DetailView):
     context_object_name="data"
     
 @method_decorator(decs,name="dispatch")
-class ScrapDeleteView(DeleteView):
-    model = Scrap
-    template_name = 'myscraplist.html'
-    success_url = reverse_lazy('index')
+class ScrapDeleteView(View):
+    def get(self,request,*args,**kwargs):
+        id=kwargs.get("pk")
+        Scrap.objects.get(id=id).delete()
+        messages.success(request,"your Scrap has been deleted")
+        return redirect("index")
+    
 
 @method_decorator(decs,name="dispatch")
 class ScrapEditView(UpdateView):
@@ -120,11 +128,13 @@ class WishlistAddView(View):
         wishlist, created = WishList.objects.get_or_create(user=request.user)
         if action == "add":
             wishlist.scrap.add(scrap_obj)
+            messages.success(request,"added to wishlist")
         elif action == "remove":
             wishlist.scrap.remove(scrap_obj)
             print("removed")
         elif action == "remove_from_wish":
             wishlist.scrap.remove(scrap_obj)
+            messages.success(request,"removed from wishlist")
             return redirect("wishlistview")
         return redirect("index")
     
@@ -144,6 +154,12 @@ class MyScrapListView(View):
         qs=Scrap.objects.filter(user_id=request.user.id)
         return render(request,"myscraplist.html",{"data":qs})
     
+
+class BidView(View):
+    def get(self,request,*args,**kwargs):
+        id=kwargs.get("pk")
+        qs=Bids.objects.all().filter(user=request.user)
+        return render(request,"scrap-detail.html",{"data":qs})
     
 
 

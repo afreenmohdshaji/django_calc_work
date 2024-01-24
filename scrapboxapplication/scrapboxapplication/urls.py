@@ -34,7 +34,8 @@ urlpatterns = [
     path('scrap/<int:pk>/update',views.ScrapEditView.as_view(),name="scrap-edit"),
     path('scrap/<int:pk>/wishlist',views.WishlistAddView.as_view(),name='wishlist'),
     path('scrap/wishlistview/',views.WishListView.as_view(),name="wishlistview"),
-    path('scrap/myscraplist/',views.MyScrapListView.as_view(),name="myscrap-list")
+    path('scrap/myscraplist/',views.MyScrapListView.as_view(),name="myscrap-list"),
+    path('scrap/<int:pk>/bid/',views.BidView.as_view(),name="bid-add")
    
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

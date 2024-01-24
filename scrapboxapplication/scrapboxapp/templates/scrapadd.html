@@ -8,16 +8,7 @@
 </head>
 <body style="background: #6e6c6d;">
     <div class="container shadow w-75 mt-5 p-5 rounded-3" style="background: #ffffff;">
-        {%if messages%}
-            {%for m in messages %}
-
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong> </strong> {{m}}.
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-
-            {%endfor%}
-        {%endif%}
+        
         {%if form.errors%}
             {{form.erors}}
         {%endif%}

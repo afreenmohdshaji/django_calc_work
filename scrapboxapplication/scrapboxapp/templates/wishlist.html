@@ -8,6 +8,14 @@
 </head>
 <body>
     <section class="h-100 h-custom mt-4" style="background-color: #eee;">
+      {%if messages%}
+        {%for m in messages %}
+          <div class="alert alert-info alert-dismissible fade show w-50" role="alert">
+            <strong> </strong> {{m}}.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {%endfor%}
+      {%endif%}
         <div class="container py-5 h-100">
           <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col">
@@ -26,10 +34,7 @@
                           <p class="mb-1">Your Wishlist</p>
                           <p class="mb-0">You have {{ data.scrap.all|length }} items in your wishlist</p>
                         </div>
-                        <div>
-                          <p class="mb-0"><span class="text-muted">Sort by:</span> <a href="#!"
-                              class="text-body">price <i class="fas fa-angle-down mt-1"></i></a></p>
-                        </div>
+                        
                       </div>
                     {%for p in data.scrap.all%}
                       <div class="card mb-3">

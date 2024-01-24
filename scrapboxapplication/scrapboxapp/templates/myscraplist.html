@@ -10,7 +10,7 @@
                 <div class="card bg-body-secondary" style="width: 18rem;">
                     <img src="{{s.picture.url}}" class="card-img-top rounded-4" alt="..." style="width: 80%;  height: 200px; margin: auto; margin-top: 10px;">
                     <div class="card-body">
-                      <h5 class="card-title fw-bold">{{s.name}}</h5>
+                      <a href="{%url 'scrap-detail' s.id %}" class="text-black" style="text-decoration: none;" ><h5 class="card-title fw-bold" >{{s.name}}</h5></a>
                       <hr>
                       <span class="card-text">Rs{{s.price}}</span>
                       <hr>
