@@ -63,3 +63,6 @@ class BidsForm(forms.ModelForm):
     class Meta:
         model= Bids
         fields=["amount"]
+        widgets={
+            "amount":forms.NumberInput(attrs={"class":"form-control"})
+        }

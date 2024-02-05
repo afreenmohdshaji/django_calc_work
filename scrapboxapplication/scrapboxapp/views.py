@@ -1,8 +1,8 @@
 from django.forms.models import BaseModelForm
 from django.http import HttpResponse
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.views.generic import View,CreateView,FormView,ListView,TemplateView,UpdateView,DetailView,DeleteView
-from scrapboxapp.forms import RegistrationForm,LoginForm,ScrapForm,UserProfileForm
+from scrapboxapp.forms import RegistrationForm,LoginForm,ScrapForm,UserProfileForm,BidsForm
 from django.urls import reverse,reverse_lazy
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
@@ -148,20 +148,56 @@ class WishListView(View):
         wishitems=Scrap.objects.exclude(user=request.user)
         return render(request,"wishlist.html",{"data":qs,"items":wishitems})
 
-
+@method_decorator(decs,name="dispatch")
 class MyScrapListView(View):
     def get(self,request,*args,**kwargs):
         qs=Scrap.objects.filter(user_id=request.user.id)
         return render(request,"myscraplist.html",{"data":qs})
     
+@method_decorator(decs,name="dispatch")
+class BidCreateView(CreateView):
+    model = Bids
+    form_class = BidsForm
+    template_name = 'bid_add.html'  
+    success_url = reverse_lazy('index')  
 
-class BidView(View):
-    def get(self,request,*args,**kwargs):
-        id=kwargs.get("pk")
-        qs=Bids.objects.all().filter(user=request.user)
-        return render(request,"scrap-detail.html",{"data":qs})
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        scrap = get_object_or_404(Scrap, pk=self.kwargs['pk'])
+        context['scrap'] = scrap
+        return context
+
+    def form_valid(self, form):
+        
+        form.instance.user = self.request.user
+        form.instance.scrap_id = self.kwargs['pk']
+        messages.success(self.request,"bid placed")
+        
+        return super().form_valid(form)
     
 
-
+@method_decorator(decs,name="dispatch")
+class AllBidsView(View):
+    def get(self,request,*args,**kwargs):
+        data=Scrap.objects.all()
+        qs=Bids.objects.filter(scrap__user=request.user)
+        return render(request,"bids.html",{"data":qs,"scrap":data})
+    def post(self,request,*args,**kwargs):
+        id=kwargs.get("pk")
+        bid=Bids.objects.get(id=id)
+        action=request.POST.get("action")
+        if request.user == bid.scrap.user:
+            if action=="accept":
+                Bids.objects.filter(id=id).update(status="accept")
+                bid.scrap.status="sold"
+                bid.scrap.save()
+                messages.success(request, 'Bid accepted successfully.')
+            elif action=="reject":
+                Bids.objects.filter(id=id).update(status="reject")
+                messages.success(request, 'Bid rejected successfully.')
+            Bids.objects.filter(id=id).delete()
+        else:
+            messages.error(request, 'You do not have permission')
+        return redirect("index")
 
 

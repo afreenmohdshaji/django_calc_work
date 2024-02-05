@@ -12,7 +12,7 @@
 
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-white">
+    <nav class="navbar navbar-expand-md bg-white">
         <div class="container-fluid">
           <a class="navbar-brand" href="{%url 'index'%}"><img src="{%static 'scrapbox/images/logo.png'%}" alt="" style="width: 100px;"></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,6 +44,7 @@
                     <li><a class="dropdown-item" href="{%url 'profile-detail' request.user.profile.id%}">Profile</a></li>
                     <li><a class="dropdown-item" href="{%url 'wishlistview' %}">Wishlist</a></li>
                     <li><a class="dropdown-item" href="{%url 'myscrap-list' %}">My Scraps</a></li>
+                    <li><a class="dropdown-item" href="{%url 'all-bids' user.id%}">All Bids</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="{%url 'logout' %}">Log Out</a></li>
                   </ul>
